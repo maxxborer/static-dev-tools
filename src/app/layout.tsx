@@ -2,6 +2,8 @@ import '~/styles/globals.css';
 
 import { type Metadata } from 'next';
 import clsx from 'clsx';
+import { Link } from '@nextui-org/link';
+import NextLink from 'next/link';
 
 import { siteConfig } from '~/config/site';
 import { fontSans } from '~/config/fonts';
@@ -33,6 +35,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Providers themeProps={{ attribute: 'class', defaultTheme: 'dark' }}>
           <Navbar />
           <main>{children}</main>
+          <footer className="flex h-12 items-center justify-center border-t border-gray-900">
+            <p>{`© ${new Date().getFullYear()} ${siteConfig.name}`}</p>
+            <Link as={NextLink} className="ml-4" href={siteConfig.sources}>
+              Source Code
+            </Link>
+          </footer>
         </Providers>
       </body>
     </html>
