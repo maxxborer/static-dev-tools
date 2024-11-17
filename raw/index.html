@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <title>GitLab MR Message Generator</title>
+  <style>
+    body {
+      background-color: #121212;
+      margin: 0;
+      font-family: sans-serif;
+      color: #FFFFFF;
+    }
+
+    .container {
+      max-width: 768px;
+      margin: 50px auto;
+      background-color: #1E1E1E;
+      padding: 24px;
+      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+    }
+
+    h1 {
+      margin-bottom: 16px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #BB86FC;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 16px;
+      color: #FFFFFF;
+    }
+
+    input,
+    textarea {
+      display: block;
+      width: 100%;
+      margin-top: 4px;
+      padding: 8px;
+      border: 1px solid #BB86FC;
+      border-radius: 8px;
+      font-size: 16px;
+      background-color: #2C2C2C;
+      color: #FFFFFF;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #BB86FC;
+      outline: none;
+      box-shadow: 0 0 0 1px #BB86FC;
+    }
+
+    button {
+      width: 100%;
+      background-color: #BB86FC;
+      color: #000;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #9A67EA;
+    }
+
+    button:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #BB86FC;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      background-color: #874ae8;
+      padding: 16px;
+      color: #FFFFFF;
+      border-radius: 20px;
+      position: relative;
+      margin: 10px 0;
+      max-width: 80%;
+      margin-left: auto;
+    }
+
+    pre::after {
+      content: "";
+      position: absolute;
+      right: -7px;
+      bottom: 6px;
+      border-width: 10px 0 10px 10px;
+      border-style: solid;
+      border-color: transparent transparent transparent #874ae8;
+    }
+
+
+    #message-container {
+      margin-top: 24px;
+    }
+
+    h2 {
+      margin-bottom: 8px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>GitLab MR Message Generator</h1>
+    <form id="mr-form" method="post" action="#" onsubmit="return false">
+      <label>
+        Введите ваш GitLab токен:
+        <input type="password" id="gitlabToken" required placeholder="Ваш GitLab токен" autofocus>
+      </label>
+      <label>
+        Введите URL Merge Request:
+        <input type="url" id="mrUrl" required placeholder="https://gitlab.example.com/...">
+      </label>
+      <label>
+        Введите конфигурацию (JSON):
+        <textarea id="configText" rows="10" required placeholder='{
+  "defaultHashtags": ["#feature_branch"],
+  "rules": [
+    {
+      "conditions": {
+        "projectId": [123, 321],
+        "targetBranch": "^(master|main)$"
+      },
+      "actions": {
+        "addHashtags": ["#master_branch"],
+        "removeHashtags": ["#feature_branch"]
+      }
+    },
+    {
+      "conditions": {
+        "targetBranch": "^rc\\d+"
+      },
+      "actions": {
+        "removeHashtags": ["#feature_branch"]
+      }
+    }
+  ]
+}'></textarea>
+      </label>
+      <button type="submit">Получить сообщение</button>
+    </form>
+    <h2>Результат:</h2>
+    <div id="message-container" style="display: none;">
+      <pre id="message"></pre>
+      <button id="copy-button">Копировать ответ в буфер обмена</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

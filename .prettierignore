@@ -1,0 +1,57 @@
+# Ignore everything recursively...
+*
+
+!*.ts
+!*.tsx
+!*.js
+!*.jsx
+!*.vue
+!*.html
+!*.css
+!*.scss
+!*.json
+!*.md
+
+# But still ignore the dist folder
+dist/**
+build/**
+.next/**
+out/**
+
+# Check subdirectories too
+!*/
+
+k8s
+tests
+mocks
+docs
+*.config
+
+.DS_Store
+node_modules
+.cache
+.eslintcache
+
+# local env files
+.env.development
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode/settings.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.husky
+
+/live/
+
+coverage
